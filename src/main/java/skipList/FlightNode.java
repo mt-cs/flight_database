@@ -8,7 +8,8 @@ package skipList;
 public class FlightNode {
 
 	// FILL IN CODE, declare instance variables (make them private)
-	private FlightKey flight_key;
+	private FlightKey flightKey;
+	private FlightData flightData;
 
 
 	/**
@@ -17,9 +18,8 @@ public class FlightNode {
 	 */
 	public FlightNode(FlightNode node) {
 		// FILL IN CODE
-		// str key, value
-
-		// Node up, down, right
+		this.flightData = node.flightData;
+		this.flightKey = node.flightKey;
 
 	}
 
@@ -30,6 +30,8 @@ public class FlightNode {
 	 */
 	public FlightNode(FlightKey key, FlightData data) {
 		// FILL IN CODE
+		flightKey = key;
+		flightData = data;
 
 	}
 
@@ -41,7 +43,30 @@ public class FlightNode {
 	 */
 	public FlightKey getKey() {
 		// FILL IN CODE
-		return null; // don't forget to change it
+		return flightKey; // don't forget to change it
 	}
 
+	/**
+	 * setter for the key
+	 * @param key FlightKey
+	 */
+	public void setKey(FlightKey key) {
+		this.flightKey = key;
+	}
+
+	/**
+	 * getter for the data
+	 * @return flightData
+	 */
+	public FlightData getData() {
+		return flightData;
+	}
+
+	/**
+	 * setter for the data
+	 * @param data FlightData
+	 */
+	public void setData(FlightData data) {
+		this.flightData = data;
+	}
 }
