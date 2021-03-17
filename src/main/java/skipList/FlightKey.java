@@ -21,6 +21,10 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
     public FlightKey(String or, String dest, String date, String time) {
 		// FILL IN CODE
+		origin = or;
+		this.dest = dest;
+		this.date = date;
+		this.time = time;
 
 	}
 
@@ -30,6 +34,10 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	public FlightKey(FlightKey other) {
 		// FILL IN CODE
+		this.origin = other.origin;
+		this.dest = other.dest;
+		this.date = other.date;
+		this.time = other.time;
 
 	}
 
@@ -42,16 +50,25 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	public int compareTo(FlightKey other) {
 		// FILL IN CODE
-		return 0; // don't forget to change it
+		return this.origin.compareTo(other.getOrigin()) +
+				this.dest.compareTo(other.getDest()) +
+				this.date.compareTo(other.getDate()) +
+				this.time.compareTo(other.getTime());
+		//return 0; // don't forget to change it
 	}
 
 	/**
-     * Returns a string representation of the key
+	 * Returns a string representation of the key
+	 *
 	 * @return String
 	 */
+	@Override
 	public String toString() {
-		// FILL IN CODE
-		return ""; // don't forget to change it
+		return "FlightKey: " +
+				"origin='" + origin + '\'' +
+				", dest='" + dest + '\'' +
+				", date='" + date + '\'' +
+				", time='" + time + '.' ;
 	}
 
 	/**

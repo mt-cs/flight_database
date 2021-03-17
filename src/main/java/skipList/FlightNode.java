@@ -8,6 +8,8 @@ package skipList;
 public class FlightNode {
 
 	// FILL IN CODE, declare instance variables (make them private)
+	private FlightKey flight_key;
+
 
 	/**
      * Copy constructor for FlightNode
@@ -15,6 +17,9 @@ public class FlightNode {
 	 */
 	public FlightNode(FlightNode node) {
 		// FILL IN CODE
+		// str key, value
+
+		// Node up, down, right
 
 	}
 
