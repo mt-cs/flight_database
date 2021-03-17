@@ -50,11 +50,30 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	public int compareTo(FlightKey other) {
 		// FILL IN CODE
-		return this.origin.compareTo(other.getOrigin()) +
-				this.dest.compareTo(other.getDest()) +
-				this.date.compareTo(other.getDate()) +
-				this.time.compareTo(other.getTime());
-		//return 0; // don't forget to change it
+		if (this.origin.compareTo(other.getOrigin()) < 0) {
+			return -1;
+		} else if (this.origin.compareTo(other.getOrigin()) > 0) {
+			return 1;
+		} else {
+			if (this.dest.compareTo(other.getDest()) < 0) {
+				return -1;
+			} else if (this.dest.compareTo(other.getDest()) > 0) {
+				return 1;
+			} else {
+				if (this.date.compareTo(other.getDate()) < 0) {
+					return -1;
+				} else if (this.date.compareTo(other.getDate()) > 0) {
+					return 1;
+				} else {
+					if (this.time.compareTo(other.getTime()) < 0) {
+						return -1;
+					} else if (this.time.compareTo(other.getTime()) > 0) {
+						return 1;
+					}
+				}
+			}
+		}
+		return 0; // don't forget to change it
 	}
 
 	/**
