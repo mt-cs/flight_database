@@ -1,5 +1,8 @@
 package skipList;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents the key in the FlightNode. Stores origin, destination, date and
  * time. Implements Comparable<FlightKey>.
@@ -48,31 +51,18 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	public int compareTo(FlightKey other) {
 		// FILL IN CODE
-		int result; //save the result in this temp variable, if it's not zero then return the temp, else...
-		if (this.origin.compareTo(other.getOrigin()) < 0) {
-			return -1;
-		} else if (this.origin.compareTo(other.getOrigin()) > 0) {
-			return 1;
-		} else {
-			if (this.dest.compareTo(other.getDest()) < 0) {
-				return -1;
-			} else if (this.dest.compareTo(other.getDest()) > 0) {
-				return 1;
-			} else {
-				if (this.date.compareTo(other.getDate()) < 0) {
-					return -1;
-				} else if (this.date.compareTo(other.getDate()) > 0) {
-					return 1;
-				} else {
-					if (this.time.compareTo(other.getTime()) < 0) { // convert to local date time LocalDateTime
-						return -1;
-					} else if (this.time.compareTo(other.getTime()) > 0) {
-						return 1;
-					}
-				}
+		int result = this.origin.compareTo(other.getOrigin()); //save the result in this temp variable, if it's not zero then return the temp, else...
+		if (result == 0) {
+			result = this.dest.compareTo(other.getDest());
+			if (result == 0) {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+				LocalDateTime date1 = LocalDateTime.parse(this.date + " " + this.time, formatter);
+				LocalDateTime date2 = LocalDateTime.parse(other.getDate() + " " + other.getTime(), formatter);
+				result = date1.compareTo(date2);
 			}
 		}
-		return 0; // don't forget to change it
+		result = (result < 0) ? -1 : 1;
+		return result;
 	}
 
 	/**
