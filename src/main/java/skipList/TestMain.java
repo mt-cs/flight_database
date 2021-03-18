@@ -2,7 +2,7 @@ package skipList;
 
 public class TestMain {
     public static void main(String[] args) {
-        /* TEST FLIGHT KEY */
+        /* FLIGHT KEY */
         FlightKey fk1 = new FlightKey("FRA", "JFK", "06/05/2020", "07:00");
         System.out.println(fk1.toString());
         System.out.println(fk1.getDate());
@@ -15,9 +15,13 @@ public class TestMain {
         System.out.println(fk3.toString());
         System.out.println(fk2.compareTo(fk3));
 
-        /* TEST FLIGHT DATA */
+        /* FLIGHT DATA */
         FlightData data1 = new FlightData("LH122", 300.0);
         System.out.println(data1.getFlightNumber() + " " + data1.getPrice());
+
+        /* FLIGHT NODE */
+        FlightNode node1 = new FlightNode(fk1, data1);
+        FlightNode node2 = new FlightNode(node1);
 
 
     }

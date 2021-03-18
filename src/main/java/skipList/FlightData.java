@@ -21,15 +21,11 @@ public class FlightData {
      * Returns the number of the flight
 	 * @return flight number
 	 */
-	public String getFlightNumber() {
-		return flightNumber;
-	}
+	public String getFlightNumber() { return flightNumber; }
 
 	/**
 	 * Returns the price of the flight
 	 * @return price
 	 */
-	public double getPrice() {
-		return price;
-	}
+	public double getPrice() { return price; }
 }

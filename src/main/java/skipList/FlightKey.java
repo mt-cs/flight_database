@@ -23,7 +23,6 @@ public class FlightKey implements Comparable<FlightKey> {
 	 * @param time time
 	 */
     public FlightKey(String or, String dest, String date, String time) {
-		// FILL IN CODE
 		origin = or;
 		this.dest = dest;
 		this.date = date;
@@ -35,14 +34,11 @@ public class FlightKey implements Comparable<FlightKey> {
 	 * @param other the other FlightKey
 	 */
 	public FlightKey(FlightKey other) {
-		// FILL IN CODE
 		this.origin = other.origin;
 		this.dest = other.dest;
 		this.date = other.date;
 		this.time = other.time;
 	}
-
-	// FILL IN CODE: Write getters for origin, destination, date and time
 
 	/**
      * Compares a given flight key with the one given as a parameter.
@@ -50,7 +46,6 @@ public class FlightKey implements Comparable<FlightKey> {
      * @return -1, if this key is < other, > -1 if the opposite, and 0 if equal.  </>
 	 */
 	public int compareTo(FlightKey other) {
-		// FILL IN CODE
 		int result = this.origin.compareTo(other.getOrigin()); //save the result in this temp variable, if it's not zero then return the temp, else...
 		if (result == 0) {
 			result = this.dest.compareTo(other.getDest());
