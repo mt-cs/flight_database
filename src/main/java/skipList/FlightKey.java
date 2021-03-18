@@ -25,7 +25,6 @@ public class FlightKey implements Comparable<FlightKey> {
 		this.dest = dest;
 		this.date = date;
 		this.time = time;
-
 	}
 
 	/**
@@ -38,7 +37,6 @@ public class FlightKey implements Comparable<FlightKey> {
 		this.dest = other.dest;
 		this.date = other.date;
 		this.time = other.time;
-
 	}
 
 	// FILL IN CODE: Write getters for origin, destination, date and time
@@ -50,6 +48,7 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	public int compareTo(FlightKey other) {
 		// FILL IN CODE
+		int result; //save the result in this temp variable, if it's not zero then return the temp, else...
 		if (this.origin.compareTo(other.getOrigin()) < 0) {
 			return -1;
 		} else if (this.origin.compareTo(other.getOrigin()) > 0) {
@@ -65,7 +64,7 @@ public class FlightKey implements Comparable<FlightKey> {
 				} else if (this.date.compareTo(other.getDate()) > 0) {
 					return 1;
 				} else {
-					if (this.time.compareTo(other.getTime()) < 0) {
+					if (this.time.compareTo(other.getTime()) < 0) { // convert to local date time LocalDateTime
 						return -1;
 					} else if (this.time.compareTo(other.getTime()) > 0) {
 						return 1;
@@ -83,11 +82,10 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	@Override
 	public String toString() {
-		return "FlightKey: " +
-				"origin='" + origin + '\'' +
-				", dest='" + dest + '\'' +
-				", date='" + date + '\'' +
-				", time='" + time + '.' ;
+		return "origin: " + origin +
+				", destination: " + dest +
+				", date: " + date +
+				", time: " + time + '.' ;
 	}
 
 	/**

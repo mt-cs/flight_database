@@ -2,16 +2,21 @@ package skipList;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//AAA for negative infinity
+//zzz for positive infinity
 /** The class that represents the flight database using a skip list */
 public class FlightList {
-
 	// FILL IN CODE: needs to store the head, the tail and the height of the skip
 	// list
+	private FlightNode head;
+	//private FlightNode tail;
+	private FlightNode height;
 
 	/** Default constructor */
 	public FlightList() {
 		// FILL IN CODE
+		// create dummy level with two nodes "AAA" to "zzz"
+
 
 	}
 
@@ -22,6 +27,9 @@ public class FlightList {
 	 */
 	public FlightList(String filename) {
 		// FILL IN CODE
+		// buffer reader read one line at the time
+		// call split method
+		// create FLight Key and Flight data and create insert
 	}
 
 	/**
@@ -33,6 +41,14 @@ public class FlightList {
 	 */
 	public boolean find(FlightKey key) {
 		// FILL IN CODE
+		// start with head on the top left corner "AAA"
+		// create variable current that look for the same node on the same level
+		// check if next is greater, less or equal than the input key
+		// If the next key is larger than input key then go down
+		// else if the key is less than the input key, go right
+		//
+		// is this recursive?
+		// base case stopping condition: stop once you reach the bottom level and you can't gp down
 		return false; // don't forget to change it
 	}
 
@@ -46,6 +62,11 @@ public class FlightList {
 	 */
 	public boolean insert(FlightKey key, FlightData data) {
 		// FILL IN CODE
+		// create head and level origin "AAA" to "zzz"
+		// always start with one element in the tower
+		// CALL FIND to check if the input element is already in the list
+		// If it's already in the list return false
+		// if not, two cases:
 		return false; // don't forget to change it
 	}
 

@@ -6,11 +6,13 @@ package skipList;
  * Also stores the following pointers to FlightNode(s): next, down, prev and up.
  */
 public class FlightNode {
-
 	// FILL IN CODE, declare instance variables (make them private)
 	private FlightKey flightKey;
 	private FlightData flightData;
-
+	private FlightNode next;
+	private FlightNode prev;
+	private FlightNode up;
+	private FlightNode down;
 
 	/**
      * Copy constructor for FlightNode
@@ -20,23 +22,29 @@ public class FlightNode {
 		// FILL IN CODE
 		this.flightData = node.flightData;
 		this.flightKey = node.flightKey;
-
+		this.next = node.next;
+		this.prev = node.prev;
+		this.up = node.up;
+		this.down = node.down;
 	}
 
 	/**
      * FlightNode Constructor
 	 * @param key flight key
-	 * @param data fight daya
+	 * @param data fight data
 	 */
 	public FlightNode(FlightKey key, FlightData data) {
 		// FILL IN CODE
-		flightKey = key;
-		flightData = data;
+		flightKey = new FlightKey(key); // create a copy
+		flightData = new FlightData("", 0.0);
+		next = null;
+		prev = null;
+		up = null;
+		down = null;
 
 	}
 
 	// FILL IN CODE: write getters and setters for all private variables
-
 	/**
      * A getter for the key
 	 * @return key
@@ -68,5 +76,69 @@ public class FlightNode {
 	 */
 	public void setData(FlightData data) {
 		this.flightData = data;
+	}
+
+	/**
+	 * getter for next
+	 * @return next
+	 */
+	public FlightNode getNext() {
+		return next;
+	}
+
+	/**
+	 * setter for next
+	 * @param next FlightNode
+	 */
+	public void setNext(FlightNode next) {
+		this.next = next;
+	}
+
+	/**
+	 * getter for prev
+	 * @return prev
+	 */
+	public FlightNode getPrev() {
+		return prev;
+	}
+
+	/**
+	 * setter for prev
+	 * @param prev FLightNode
+	 */
+	public void setPrev(FlightNode prev) {
+		this.prev = prev;
+	}
+
+	/**
+	 * getter for up
+	 * @return up
+	 */
+	public FlightNode getUp() {
+		return up;
+	}
+
+	/**
+	 * setter for up
+	 * @param up FlightNode
+	 */
+	public void setUp(FlightNode up) {
+		this.up = up;
+	}
+
+	/**
+	 * getter for down
+	 * @return down
+	 */
+	public FlightNode getDown() {
+		return down;
+	}
+
+	/**
+	 * setter for down
+	 * @param down FlightNode
+	 */
+	public void setDown(FlightNode down) {
+		this.down = down;
 	}
 }
