@@ -22,8 +22,11 @@ public class TestMain {
         /* FLIGHT NODE */
         FlightNode node1 = new FlightNode(fk1, data1);
         FlightNode node2 = new FlightNode(node1);
+        System.out.println(node2.getKey());
+        System.out.println(node2.getData().getFlightNumber() + " " + node2.getData().getPrice());
 
-
+        /* FLIGHT LIST*/
+        FlightList flight1 = new FlightList();
     }
 
 
