@@ -46,7 +46,7 @@ public class FlightKey implements Comparable<FlightKey> {
 
 	/**
      * Compares a given flight key with the one given as a parameter.
-	 * @param other
+	 * @param other FlightKey
      * @return -1, if this key is < other, > -1 if the opposite, and 0 if equal.  </>
 	 */
 	public int compareTo(FlightKey other) {
@@ -61,13 +61,14 @@ public class FlightKey implements Comparable<FlightKey> {
 				result = date1.compareTo(date2);
 			}
 		}
-		result = (result < 0) ? -1 : 1;
+		if (result != 0) {
+			result = (result < 0) ? -1 : 1;
+		}
 		return result;
 	}
 
 	/**
 	 * Returns a string representation of the key
-	 *
 	 * @return String
 	 */
 	@Override
