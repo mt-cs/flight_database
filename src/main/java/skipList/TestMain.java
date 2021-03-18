@@ -1,6 +1,14 @@
 package skipList;
 
+import java.util.Random;
+
 public class TestMain {
+
+    private static int flipCoin() {
+        Random ran = new Random();
+        return ran.nextInt(2);
+    }
+
     public static void main(String[] args) {
         /* FLIGHT KEY */
         FlightKey fk1 = new FlightKey("FRA", "JFK", "06/05/2020", "07:00");
@@ -32,6 +40,8 @@ public class TestMain {
         FlightList flight1 = new FlightList();
         FlightKey zzz_key =  new FlightKey("zzz", "zzz", "12/31/9999", "24:00");
         System.out.println(flight1.find(zzz_key));
+        int height = flipCoin();
+        System.out.println(height);
 
     }
 

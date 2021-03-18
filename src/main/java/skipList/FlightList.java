@@ -2,6 +2,8 @@ package skipList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 //AAA for negative infinity
 //zzz for positive infinity
 /** The class that represents the flight database using a skip list */
@@ -9,7 +11,7 @@ public class FlightList {
 	// FILL IN CODE: needs to store the head, the tail and the height of the skip
 	// list
 	private FlightNode head;
-	//private FlightNode tail;
+	private FlightNode tail;
 	private int height;
 
 	/** Default constructor */
@@ -19,7 +21,9 @@ public class FlightList {
 		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
 		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
 		AAA.setNext(zzz);
+		zzz.setPrev(AAA);
 		head = AAA;
+		tail = zzz;
 		height = 1;
 
 	}
@@ -79,12 +83,36 @@ public class FlightList {
 		// CALL FIND to check if the input element is already in the list
 		// If it's already in the list return false
 		// if not, two cases:
+		if (find(key)) {
+			return false;
+		} else {
+			// keep tossing a coin until you get heads.
+			int newHeight = flipCoin();
+			adjustHeight(newHeight);
+
+		}
+
 		return false; // don't forget to change it
 	}
 
-	private void adjustHeight(int newHeight) {
-		FlightNode temp = head;
+	private int flipCoin() {
+		int height;
+		Random ran = new Random();
+		for (height = 0; Math.abs(ran.nextInt()) % 2 == 0; height++) // ran is random generator
+			; // Do nothing
+		return height;
+	}
 
+	private void createTower() {
+
+	}
+
+
+	private void adjustHeight(int newHeight) {
+		for (int i = height; i <= newHeight; i++) {
+			FlightList dummy = new FlightList();
+			// how to connect dummy with one another
+		}
 		height = newHeight;
 	}
 
