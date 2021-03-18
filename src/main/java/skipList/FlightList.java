@@ -16,8 +16,8 @@ public class FlightList {
 	public FlightList() {
 		// FILL IN CODE
 		// create dummy level with two nodes "AAA" to "zzz"
-		FlightNode AAA = new FlightNode(new FlightKey("AAA", "", "", ""), new FlightData("", 0.0));
-		FlightNode zzz = new FlightNode(new FlightKey("zzz", "", "", ""), new FlightData("", 0.0));
+		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
+		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
 		AAA.setNext(zzz);
 		head = AAA;
 		height = 1;
@@ -52,9 +52,9 @@ public class FlightList {
 		// else if the key is less than the input key, go right
 		// base case stopping condition: stop once you reach the bottom level and you can't gp down
 		FlightNode current = head;
-		while (current.getDown() != null) {
-			if (current.getNext().getKey().compareTo(key) < 0) {
-				current = current.getDown();
+		for (int i = height; i >= 0; i++) {
+			while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
+				current = current.getNext();
 			}
 			current = current.getNext();
 			if (current.getKey().compareTo(key) == 0) {
@@ -80,6 +80,12 @@ public class FlightList {
 		// If it's already in the list return false
 		// if not, two cases:
 		return false; // don't forget to change it
+	}
+
+	private void adjustHeight(int newHeight) {
+		FlightNode temp = head;
+
+		height = newHeight;
 	}
 
 	/**
@@ -121,8 +127,10 @@ public class FlightList {
 	 */
 	public String toString() {
 		// FILL IN CODE
+		StringBuilder sb = new StringBuilder();
 
-		return ""; // don't forget to change it
+
+		return sb.toString(); // don't forget to change it
 	}
 
 	/**

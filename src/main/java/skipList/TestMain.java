@@ -17,6 +17,7 @@ public class TestMain {
 
         /* FLIGHT DATA */
         FlightData data1 = new FlightData("LH122", 300.0);
+        FlightData data2 = new FlightData("LH150", 500.0);
         System.out.println(data1.getFlightNumber() + " " + data1.getPrice());
 
         /* FLIGHT NODE */
@@ -24,9 +25,14 @@ public class TestMain {
         FlightNode node2 = new FlightNode(node1);
         System.out.println(node2.getKey());
         System.out.println(node2.getData().getFlightNumber() + " " + node2.getData().getPrice());
+        FlightNode node3 = new FlightNode(fk2, data2);
+        node1.setNext(node3);
 
         /* FLIGHT LIST*/
         FlightList flight1 = new FlightList();
+        FlightKey zzz_key =  new FlightKey("zzz", "zzz", "12/31/9999", "24:00");
+        System.out.println(flight1.find(zzz_key));
+
     }
 
 
