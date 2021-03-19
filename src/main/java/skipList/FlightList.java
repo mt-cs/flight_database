@@ -48,15 +48,8 @@ public class FlightList {
 	 * @return true if the key is in the skip list, false otherwise
 	 */
 	public boolean find(FlightKey key) {
-		// FILL IN CODE
-		// start with head on the top left corner "AAA"
-		// create variable current that look for the same node on the same level
-		// check if next is greater, less or equal than the input key
-		// If the next key is larger than input key then go down
-		// else if the key is less than the input key, go right
-		// base case stopping condition: stop once you reach the bottom level and you can't gp down
 		FlightNode current = head;
-		for (int i = height; i >= 0; i++) {
+		for (int i = height; i > 0; i--) {
 			while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
 				current = current.getNext();
 			}
@@ -65,7 +58,7 @@ public class FlightList {
 				return true;
 			}
 		}
-		return false; // don't forget to change it
+		return false;
 	}
 
 	/**
@@ -88,11 +81,16 @@ public class FlightList {
 		} else {
 			FlightNode newNode= new FlightNode(key, data);
 			// keep tossing a coin until you get heads.
+			int startHeight = height;
 			int toss = flipCoin();
 			while (toss == 1) {
-				createTower(newNode);
+				newNode = createTower(newNode);
+				toss = flipCoin();
 			}
-
+			int heightDifference = height - startHeight;
+			if (heightDifference != 0) {
+				adjustHeight(heightDifference);
+			}
 		}
 
 		return false; // don't forget to change it
@@ -104,22 +102,27 @@ public class FlightList {
 	}
 
 
-	private void createTower(FlightNode node) {
+	private FlightNode createTower(FlightNode node) {
 		FlightNode copy = new FlightNode(node);
 		node.setUp(copy);
 		copy.setDown(node);
 		height++;
-
-		// how to connect dummy head with one another
+		return copy;
 	}
 
 
 	private void adjustHeight(int newHeight) {
-		for (int i = height; i <= newHeight; i++) {
+		FlightNode tempHead = head;
+		FlightNode tempTail = tail;
+		for (int i = 1; i <= newHeight; i++) {
 			FlightList dummy = new FlightList();
-			// how to connect dummy level with one another
+			dummy.head.setUp(tempHead);
+			dummy.tail.setUp(tempTail);
+			tempHead.setDown(dummy.head);
+			tempTail.setDown(dummy.tail);
+			tempHead = dummy.head;
+			tempTail = dummy.tail;
 		}
-		height = newHeight;
 	}
 
 	/**
