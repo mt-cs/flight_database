@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -24,6 +25,7 @@ public class FlightList {
 	public FlightList() {
 		// FILL IN CODE
 		// create dummy level with two nodes "AAA" to "zzz"
+
 		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
 		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
 		AAA.setNext(zzz);
@@ -40,7 +42,14 @@ public class FlightList {
 	 * @param filename the name of he file
 	 */
 	public FlightList(String filename) {
-		try  (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
+		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
+		AAA.setNext(zzz);
+		zzz.setPrev(AAA);
+		head = AAA;
+		tail = zzz;
+		height = 1;
+		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			String s;
 			while ((s = br.readLine()) != null) {
 				String[] arr = s.split(" ");
@@ -50,8 +59,6 @@ public class FlightList {
 				FlightData data = new FlightData(arr[4], Double.parseDouble(arr[5]));
 				insert(key, data);
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,7 +76,7 @@ public class FlightList {
 		for (int i = height; i > 0; i--) {
 			moveRight(current, key);
 			current = current.getNext();
-			if (current.getKey().compareTo(key) == 0) {
+			if (current != null && current.getKey().compareTo(key) == 0) {
 				return true;
 			}
 		}
@@ -77,8 +84,10 @@ public class FlightList {
 	}
 
 	private void moveRight (FlightNode current, FlightKey key) {
-		while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
-			current = current.getNext();
+		if (current != null) {
+			while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
+				current = current.getNext();
+			}
 		}
 	}
 
@@ -91,12 +100,6 @@ public class FlightList {
 	 * @return true if insertion was successful
 	 */
 	public boolean insert(FlightKey key, FlightData data) {
-		// FILL IN CODE
-		// create head and level origin "AAA" to "zzz"
-		// always start with one element in the tower
-		// CALL FIND to check if the input element is already in the list
-		// If it's already in the list return false
-		// if not, two cases:
 		if (find(key)) {
 			return false;
 		} else {
@@ -107,22 +110,28 @@ public class FlightList {
 			update.add(newNode);
 			int toss = flipCoin();
 			while (toss == 1) {
-				newNode = createTower(newNode);
+				newNode = addToTower(newNode);
 				update.add(newNode);
 				toss = flipCoin();
 			}
 			int heightDifference = height - startHeight;
 			if (heightDifference != 0) {
-				adjustHeight(heightDifference);
+				adjustLevel(heightDifference);
 			}
 			FlightNode current = head;
 			FlightNode tempNext;
+			FlightNode tempCurrent;
 			for (int i = 0; i < update.size(); i++) {
 				moveRight(current, key);
 				tempNext = current.getNext();
+				tempCurrent = current;
 				current.setNext(update.get(i));
+				update.get(i).setPrev(tempCurrent);
 				update.get(i).setNext(tempNext);
-				current = current.getDown();
+				tempNext.setPrev(update.get(i));
+				if (current.getDown() != null) {
+					current = current.getDown();
+				}
 			}
 			return true;
 		}
@@ -133,7 +142,7 @@ public class FlightList {
 		return ran.nextInt(2);
 	}
 
-	private FlightNode createTower(FlightNode node) {
+	private FlightNode addToTower(FlightNode node) {
 		FlightNode copy = new FlightNode(node);
 		node.setUp(copy);
 		copy.setDown(node);
@@ -141,17 +150,20 @@ public class FlightList {
 		return copy;
 	}
 
-	private void adjustHeight(int newHeight) {
+	private void adjustLevel(int newHeight) {
 		FlightNode tempHead = head;
 		FlightNode tempTail = tail;
 		for (int i = 1; i <= newHeight; i++) {
-			FlightList dummy = new FlightList();
-			dummy.head.setUp(tempHead);
-			dummy.tail.setUp(tempTail);
-			tempHead.setDown(dummy.head);
-			tempTail.setDown(dummy.tail);
-			tempHead = dummy.head;
-			tempTail = dummy.tail;
+			FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
+			FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
+			AAA.setNext(zzz);
+			zzz.setPrev(AAA);
+			AAA.setUp(tempHead);
+			zzz.setUp(tempTail);
+			tempHead.setDown(AAA);
+			tempTail.setDown(zzz);
+			tempHead = AAA;
+			tempTail = zzz;
 		}
 	}
 
