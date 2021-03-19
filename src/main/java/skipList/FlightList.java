@@ -1,5 +1,11 @@
 package skipList;
 
+import org.junit.Assert;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,10 +40,21 @@ public class FlightList {
 	 * @param filename the name of he file
 	 */
 	public FlightList(String filename) {
-		// FILL IN CODE
-		// buffer reader read one line at the time
-		// call split method
-		// create FLight Key and Flight data and create insert
+		try  (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+			String s;
+			while ((s = br.readLine()) != null) {
+				String[] arr = s.split(" ");
+				if (arr.length != 6)
+					throw new IndexOutOfBoundsException();
+				FlightKey key = new FlightKey(arr[0], arr[1], arr[2], arr[3]);
+				FlightData data = new FlightData(arr[4], Double.parseDouble(arr[5]));
+				insert(key, data);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
