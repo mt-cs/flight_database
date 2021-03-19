@@ -86,32 +86,38 @@ public class FlightList {
 		if (find(key)) {
 			return false;
 		} else {
+			FlightNode newNode= new FlightNode(key, data);
 			// keep tossing a coin until you get heads.
-			int newHeight = flipCoin();
-			adjustHeight(newHeight);
+			int toss = flipCoin();
+			while (toss == 1) {
+				createTower(newNode);
+			}
 
 		}
 
 		return false; // don't forget to change it
 	}
 
-	private int flipCoin() {
-		int height;
+	private static int flipCoin() {
 		Random ran = new Random();
-		for (height = 0; Math.abs(ran.nextInt()) % 2 == 0; height++) // ran is random generator
-			; // Do nothing
-		return height;
+		return ran.nextInt(2);
 	}
 
-	private void createTower() {
 
+	private void createTower(FlightNode node) {
+		FlightNode copy = new FlightNode(node);
+		node.setUp(copy);
+		copy.setDown(node);
+		height++;
+
+		// how to connect dummy head with one another
 	}
 
 
 	private void adjustHeight(int newHeight) {
 		for (int i = height; i <= newHeight; i++) {
 			FlightList dummy = new FlightList();
-			// how to connect dummy with one another
+			// how to connect dummy level with one another
 		}
 		height = newHeight;
 	}

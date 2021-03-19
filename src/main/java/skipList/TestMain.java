@@ -9,6 +9,18 @@ public class TestMain {
         return ran.nextInt(2);
     }
 
+
+    private static void createTower(FlightNode node) {
+        int height = 1;
+        if (flipCoin() == 1) {
+            FlightNode copy = new FlightNode(node);
+            node.setUp(copy);
+            copy.setDown(node);
+            height++;
+        }
+        // how to connect dummy head with one another
+    }
+
     public static void main(String[] args) {
         /* FLIGHT KEY */
         FlightKey fk1 = new FlightKey("FRA", "JFK", "06/05/2020", "07:00");
@@ -34,14 +46,14 @@ public class TestMain {
         System.out.println(node2.getKey());
         System.out.println(node2.getData().getFlightNumber() + " " + node2.getData().getPrice());
         FlightNode node3 = new FlightNode(fk2, data2);
-        node1.setNext(node3);
+        node2.setNext(node3);
 
         /* FLIGHT LIST*/
         FlightList flight1 = new FlightList();
         FlightKey zzz_key =  new FlightKey("zzz", "zzz", "12/31/9999", "24:00");
         System.out.println(flight1.find(zzz_key));
-        int height = flipCoin();
-        System.out.println(height);
+
+        createTower(node1);
 
     }
 
