@@ -50,15 +50,19 @@ public class FlightList {
 	public boolean find(FlightKey key) {
 		FlightNode current = head;
 		for (int i = height; i > 0; i--) {
-			while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
-				current = current.getNext();
-			}
+			moveRight(current, key);
 			current = current.getNext();
 			if (current.getKey().compareTo(key) == 0) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	private void moveRight (FlightNode current, FlightKey key) {
+		while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
+			current = current.getNext();
+		}
 	}
 
 	/**
@@ -82,25 +86,35 @@ public class FlightList {
 			FlightNode newNode= new FlightNode(key, data);
 			// keep tossing a coin until you get heads.
 			int startHeight = height;
+			ArrayList<FlightNode> update = new ArrayList<>();
+			update.add(newNode);
 			int toss = flipCoin();
 			while (toss == 1) {
 				newNode = createTower(newNode);
+				update.add(newNode);
 				toss = flipCoin();
 			}
 			int heightDifference = height - startHeight;
 			if (heightDifference != 0) {
 				adjustHeight(heightDifference);
 			}
+			FlightNode current = head;
+			FlightNode tempNext;
+			for (int i = 0; i < update.size(); i++) {
+				moveRight(current, key);
+				tempNext = current.getNext();
+				current.setNext(update.get(i));
+				update.get(i).setNext(tempNext);
+				current = current.getDown();
+			}
+			return true;
 		}
-
-		return false; // don't forget to change it
 	}
 
 	private static int flipCoin() {
 		Random ran = new Random();
 		return ran.nextInt(2);
 	}
-
 
 	private FlightNode createTower(FlightNode node) {
 		FlightNode copy = new FlightNode(node);
@@ -109,7 +123,6 @@ public class FlightList {
 		height++;
 		return copy;
 	}
-
 
 	private void adjustHeight(int newHeight) {
 		FlightNode tempHead = head;
