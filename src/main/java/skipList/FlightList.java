@@ -42,13 +42,14 @@ public class FlightList {
 	 * @param filename the name of he file
 	 */
 	public FlightList(String filename) {
-		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
-		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
-		AAA.setNext(zzz);
-		zzz.setPrev(AAA);
-		head = AAA;
-		tail = zzz;
-		height = 1;
+//		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
+//		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
+//		AAA.setNext(zzz);
+//		zzz.setPrev(AAA);
+//		head = AAA;
+//		tail = zzz;
+//		height = 1;
+		this();
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			String s;
 			while ((s = br.readLine()) != null) {
@@ -74,7 +75,7 @@ public class FlightList {
 	public boolean find(FlightKey key) {
 		FlightNode current = head;
 		for (int i = height; i > 0; i--) {
-			moveRight(current, key);
+			current = moveRight(current, key);
 			current = current.getNext();
 			if (current != null && current.getKey().compareTo(key) == 0) {
 				return true;
@@ -83,12 +84,13 @@ public class FlightList {
 		return false;
 	}
 
-	private void moveRight (FlightNode current, FlightKey key) {
+	private FlightNode moveRight (FlightNode current, FlightKey key) {
 		if (current != null) {
 			while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
 				current = current.getNext();
 			}
 		}
+		return current;
 	}
 
 	/**
@@ -122,7 +124,7 @@ public class FlightList {
 			FlightNode tempNext;
 			FlightNode tempCurrent;
 			for (int i = 0; i < update.size(); i++) {
-				moveRight(current, key);
+				current = moveRight(current, key);
 				tempNext = current.getNext();
 				tempCurrent = current;
 				current.setNext(update.get(i));
