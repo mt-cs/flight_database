@@ -21,7 +21,7 @@ public class Project2Test {
      */
     public void testInsertAndFind() {
         FlightList list = new FlightList(filename);
-        try  (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String s;
             while ((s = br.readLine()) != null) {
                 String[] arr = s.split(" ");

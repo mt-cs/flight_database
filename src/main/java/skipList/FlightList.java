@@ -76,7 +76,9 @@ public class FlightList {
 		FlightNode current = head;
 		for (int i = height; i > 0; i--) {
 			current = moveRight(current, key);
-			current = current.getNext();
+			if (current != null) {
+				current = current.getNext();
+			}
 			if (current != null && current.getKey().compareTo(key) == 0) {
 				return true;
 			}
