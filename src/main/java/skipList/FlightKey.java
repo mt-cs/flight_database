@@ -68,10 +68,10 @@ public class FlightKey implements Comparable<FlightKey> {
 	 */
 	@Override
 	public String toString() {
-		return "origin: " + origin +
-				", destination: " + dest +
-				", date: " + date +
-				", time: " + time + '.' ;
+		return "(" + origin +
+				", " + dest +
+				", " + date +
+				", " + time + ")";
 	}
 
 	/**

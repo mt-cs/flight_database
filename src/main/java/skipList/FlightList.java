@@ -11,21 +11,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-//AAA for negative infinity
-//zzz for positive infinity
 /** The class that represents the flight database using a skip list */
 public class FlightList {
-	// FILL IN CODE: needs to store the head, the tail and the height of the skip
-	// list
 	private FlightNode head;
 	private FlightNode tail;
 	private int height;
 
 	/** Default constructor */
 	public FlightList() {
-		// FILL IN CODE
-		// create dummy level with two nodes "AAA" to "zzz"
-
 		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
 		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
 		AAA.setNext(zzz);
@@ -42,13 +35,6 @@ public class FlightList {
 	 * @param filename the name of he file
 	 */
 	public FlightList(String filename) {
-//		FlightNode AAA = new FlightNode(new FlightKey("AAA", "AAA", "01/01/0001", "00:01"), new FlightData("", 0.0));
-//		FlightNode zzz = new FlightNode(new FlightKey("zzz", "zzz", "12/31/9999", "24:00"), new FlightData("", 0.0));
-//		AAA.setNext(zzz);
-//		zzz.setPrev(AAA);
-//		head = AAA;
-//		tail = zzz;
-//		height = 1;
 		this();
 		try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
 			String s;
@@ -206,14 +192,30 @@ public class FlightList {
 	 * top. Each level should be on a separate line, for instance:
 	 * (SFO, PVD, 03/14, 09:15)
 	 * (SFO, JFK, 03/15, 06:30), (SFO, PVD, 03/14, 09:15)
-	 * (SFO, JFK, 03/15, 06:30),   (SFO, JFK, 03/15, 7:15), (SFO, JFK, 03/20, 5:00), (SFO, PVD, 03/14, 09:15)
+	 * (SFO, JFK, 03/15, 06:30), (SFO, JFK, 03/15, 7:15), (SFO, JFK, 03/20, 5:00), (SFO, PVD, 03/14, 09:15)
 	 */
 	public String toString() {
 		// FILL IN CODE
 		StringBuilder sb = new StringBuilder();
-
-
-		return sb.toString(); // don't forget to change it
+		FlightNode prev = head;
+		FlightNode current = prev.getNext();
+		for (int i = 1; i <= height; i++) {
+			while (current != null && current.getNext() != null) {
+				String[] arr = current.getKey().toString().split(", ");
+				sb.append(arr[0]).append(", ").append(arr[1]).append(", ").append(arr[2].substring(0,5)).
+						append(", ").append(arr[3]);
+				if (current.getNext().getNext() != null) {
+					sb.append(", ");
+				}
+				current = current.getNext();
+			}
+			if (prev.getDown() != null) {
+				prev = prev.getDown();
+				current = prev.getNext();
+				sb.append("\n");
+			}
+		}
+		return sb.toString();
 	}
 
 	/**
