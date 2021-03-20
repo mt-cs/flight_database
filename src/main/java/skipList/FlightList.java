@@ -68,6 +68,9 @@ public class FlightList {
 			if (current != null && current.getKey().compareTo(key) == 0) {
 				return true;
 			}
+			if (current!= null && current.getDown() != null) {
+				current = current.getDown();
+			}
 		}
 		return false;
 	}
@@ -112,10 +115,9 @@ public class FlightList {
 			FlightNode tempNext;
 			FlightNode tempCurrent;
 			for (int i = 0; i < update.size(); i++) {
-				current = moveRight(current, key);
-				tempNext = current.getNext();
-				tempCurrent = current;
-				current.setNext(update.get(i));
+				tempCurrent = moveRight(current, key);
+				tempNext = tempCurrent.getNext();
+				tempCurrent.setNext(update.get(i));
 				update.get(i).setPrev(tempCurrent);
 				update.get(i).setNext(tempNext);
 				tempNext.setPrev(update.get(i));
@@ -134,8 +136,8 @@ public class FlightList {
 
 	private FlightNode addToTower(FlightNode node) {
 		FlightNode copy = new FlightNode(node);
-		node.setUp(copy);
-		copy.setDown(node);
+		node.setDown(copy);
+		copy.setUp(node);
 		height++;
 		return copy;
 	}
