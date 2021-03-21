@@ -68,6 +68,12 @@ public class FlightList {
 		return false;
 	}
 
+	/**
+	 * Move current node to the right, stop when next is bigger than key node
+	 * @param current current FLightNode pointer
+	 * @param key key to be inserted
+	 * @return position of current node
+	 */
 	private FlightNode moveRight (FlightNode current, FlightKey key) {
 		if (current != null) {
 			while (current.getNext() != null && current.getNext().getKey().compareTo(key) < 0) {
@@ -91,17 +97,17 @@ public class FlightList {
 		}
 		// build tower
 		FlightNode newNode= new FlightNode(key, data);
-		int newHeight = getHeight();
-		for (int i = 1; i < newHeight; i++) {
+		int towerHeight = getHeight();
+		for (int i = 1; i < towerHeight; i++) {
 			newNode = addToTower(newNode);
 		}
 		FlightNode current = head;
 		FlightNode tempNext;
 		// case 1
-		if (newHeight <= height) {
+		if (towerHeight <= height) {
 			for (int i = height - 1; i >= 0; i--) {
 				// skip the top level
-				if (i > newHeight) {
+				if (i > towerHeight) {
 					current = current.getDown();
 				} else {
 					current = moveRight(current, key);
@@ -117,7 +123,7 @@ public class FlightList {
 				}
 			}
 		} else {
-			current = adjustLevel(newHeight - height);
+			current = adjustLevel(towerHeight - height);
 			for (int i = 0; i < height; i++) {
 				current = moveRight(current, key);
 				tempNext = current.getNext();
@@ -135,20 +141,32 @@ public class FlightList {
 		return true;
 	}
 
+	/**
+	 * get new height of the tower
+	 * @return tower height
+	 */
 	private static int getHeight() {
-		int height = 1;
+		int towerHeight = 1;
 		while (flipCoin() == 1) {
-			height ++;
+			towerHeight++;
 		}
-		return height;
+		return towerHeight;
 	}
 
-
+	/**
+	 * random toss of 0 or 1
+	 * @return toss result
+	 */
 	private static int flipCoin() {
 		Random ran = new Random();
 		return ran.nextInt(2);
 	}
 
+	/**
+	 * building up node tower
+	 * @param node new node to be inserted
+	 * @return node with new level
+	 */
 	private FlightNode addToTower(FlightNode node) {
 		FlightNode copy = new FlightNode(node);
 		node.setUp(copy);
@@ -156,6 +174,11 @@ public class FlightList {
 		return copy;
 	}
 
+	/**
+	 * Add extra level on the skip list
+	 * @param heightDifference the difference of new height and start height
+	 * @return head at the top left level
+	 */
 	private FlightNode adjustLevel(int heightDifference) {
 		for (int i = 1; i <= heightDifference; i++) {
 			head.setUp(new FlightNode(
