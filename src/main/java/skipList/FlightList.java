@@ -1,6 +1,7 @@
 package skipList;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class FlightList {
 			if (current.getNext() != null && current.getNext().getKey().compareTo(key) == 0) {
 				return true;
 			}
-			if (current!= null && current.getDown() != null) {
+			if (current.getDown() != null) {
 				current = current.getDown();
 			}
 		}
@@ -264,7 +265,16 @@ public class FlightList {
 	 * @param filename the name of the file
 	 */
 	public void print(String filename) {
-		// FILL IN CODE
+		String s = toString();
+		try {
+			FileWriter myWriter = new FileWriter(filename);
+			myWriter.write(s);
+			myWriter.close();
+			System.out.println("Successfully wrote to the file.");
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 	}
 
 	/**

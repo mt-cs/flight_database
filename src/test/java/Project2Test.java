@@ -13,10 +13,11 @@ import java.util.List;
 
 /** Test file for project 2 */
 public class Project2Test {
-    public static String filename = "flights_small";
+    public static String filename = "flights";
 
     @Test
-    /** Load flights from the file  and insert to the FlightList.
+    /**
+     * Load flights from the file  and insert to the FlightList.
      * Then run the find method for each flight key to make sure it is in the list.
      */
     public void testInsertAndFind() {

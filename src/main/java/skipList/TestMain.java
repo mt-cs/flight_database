@@ -1,7 +1,4 @@
 package skipList;
-
-import java.util.Random;
-
 public class TestMain {
 
     public static void main(String[] args) {
@@ -37,8 +34,9 @@ public class TestMain {
 //        System.out.println(flight1.find(zzz_key));
         System.out.println(flight1.insert(fk1, data1));
         System.out.println(flight1.insert(fk2, data2));
-//        System.out.println(flight1.find(fk1));
+        System.out.println(flight1.find(fk1));
         System.out.println(flight1.toString());
+        flight1.print("output.txt");
 
     }
 
