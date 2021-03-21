@@ -103,11 +103,10 @@ public class FlightList {
 		}
 		FlightNode current = head;
 		FlightNode tempNext;
-		// case 1
 		if (towerHeight <= height) {
 			for (int i = height - 1; i >= 0; i--) {
 				// skip the top level
-				if (i > towerHeight) {
+				if (i >= towerHeight) {
 					current = current.getDown();
 				} else {
 					current = moveRight(current, key);
@@ -116,7 +115,7 @@ public class FlightList {
 					newNode.setPrev(current);
 					newNode.setNext(tempNext);
 					tempNext.setPrev(newNode);
-					if (current.getNext().getKey().compareTo(key) <= 0 && current.getDown() != null) {
+					if (current.getNext().getKey().compareTo(key) <= 0 && current.getDown() != null && newNode.getDown() != null) {
 						current = current.getDown();
 						newNode = newNode.getDown();
 					}
@@ -136,7 +135,6 @@ public class FlightList {
 					newNode = newNode.getDown();
 				}
 			}
-			return true;
 		}
 		return true;
 	}
