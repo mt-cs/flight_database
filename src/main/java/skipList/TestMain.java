@@ -37,7 +37,7 @@ public class TestMain {
 //        System.out.println(flight1.find(zzz_key));
         System.out.println(flight1.insert(fk1, data1));
         System.out.println(flight1.insert(fk2, data2));
-//        System.out.println(flight1.find(fk1));
+        System.out.println(flight1.find(fk1));
         System.out.println(flight1.toString());
 
     }

@@ -13,7 +13,7 @@ import java.util.List;
 
 /** Test file for project 2 */
 public class Project2Test {
-    public static String filename = "flights";
+    public static String filename = "flights_small";
 
     @Test
     /** Load flights from the file  and insert to the FlightList.
