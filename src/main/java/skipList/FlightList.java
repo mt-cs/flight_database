@@ -3,7 +3,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -206,9 +209,36 @@ public class FlightList {
 	 */
 	public List<FlightNode> successors(FlightKey key) {
 		List<FlightNode> arr = new ArrayList<FlightNode>();
-		// FILL IN CODE
-
+		FlightNode current = head;
+		for (int i = height; i > 0; i--) {
+			current = moveRight(current, key);
+			try {
+				if (current.getNext() != null && current.getNext().getKey().compareTo(key) == 0) {
+					while (current.getNext().getNext() != null) {
+						current = current.getNext();
+						if (compare(current.getKey(), key) == 0) {
+							arr.add(current);
+						}
+					}
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			if (current.getDown() != null) {
+				current = current.getDown();
+			}
+		}
 		return arr;
+		// FILL IN CODE
+		//Returns a list of nodes that have
+		// the same origin and destination cities and the same date as the key,
+		// with departure times in increasing order from the requested departure time.
+		// For example, for the following key (SFO, JFK, 03/15/2021, 08:00),
+		// the method will return the following flights (assuming they are in the flights file):
+		//(SFO, JFK, 03/15/2021, 08:15)
+		//(SFO, JFK, 03/15/2021, 09:00)
+		//(SFO, JFK, 03/15/2021, 13:40)
+		//(SFO, JFK, 03/15/2021, 19:00)
 	}
 
 	/**
@@ -221,10 +251,24 @@ public class FlightList {
 	 */
 	public List<FlightNode> predecessors(FlightKey key, int timeFrame) {
 		List<FlightNode> arr = new ArrayList<FlightNode>();
-
-		// FILL IN CODE
 		return arr;
+	}
 
+	public int compare(FlightKey key1, FlightKey key2) throws ParseException {
+		int result = key1.getOrigin().compareTo(key2.getOrigin()); //save the result in this temp variable, if it's not zero then return the temp, else...
+		if (result == 0) {
+			result = key1.getDest().compareTo(key2.getDest());
+			if (result == 0) {
+				SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+				Date date1 = formatter.parse(key1.getDate());
+				Date date2 = formatter.parse(key2.getDate());
+				result = date1.compareTo(date2);
+			}
+		}
+		if (result != 0) {
+			result = (result < 0) ? -1 : 1;
+		}
+		return result;
 	}
 
 	/**
