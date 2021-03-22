@@ -123,7 +123,6 @@ public class Project2Test {
         }
     }
 
-
     @Test
     /** Test successors() method */
     public void testSuccessors() {

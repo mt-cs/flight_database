@@ -6,10 +6,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /** The class that represents the flight database using a skip list */
 public class FlightList {
@@ -213,7 +210,11 @@ public class FlightList {
 		for (int i = height; i > 0; i--) {
 			current = moveRight(current, key);
 			if (current.getNext() != null && current.getNext().getKey().compareTo(key) == 0) {
-				return current.getNext();
+				current = current.getNext();
+				while (current.getDown() != null) {
+					current = current.getDown();
+				}
+				return current;
 			}
 			if (current.getDown() != null) {
 				current = current.getDown();
@@ -254,37 +255,29 @@ public class FlightList {
 	 */
 	public List<FlightNode> predecessors(FlightKey key, int timeFrame) {
 		List<FlightNode> arr = new ArrayList<FlightNode>();
-		FlightNode current = head;
-		for (int i = height; i > 0; i--) {
-			current = moveRight(current, key);
-			try {
-				if (current.getNext() != null && compare(current.getNext().getKey(), key) == 0) {
-					if (compareTime(current.getNext().getKey(), key) < 0) {
-						current = current.getNext();
-						while (current.getDown() != null) {
-							current = current.getDown();
-							i--;
-						}
-						while (current.getNext() != null) {
-							//if (compare(current.getKey(), key) == 0) {
-							if (current.getKey().compareTo(key) < 0) {
-								arr.add(current);
-							}
-							current = current.getNext();
-						}
-					}
+		FlightNode current = findNode(key);
+		try {
+
+			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0) {
+				if (compareTime(current.getKey(), key) < 0) {
+					arr.add(0, current);
 				}
-			} catch (ParseException e) {
-				e.printStackTrace();
+				current = current.getPrev();
 			}
-			if (current.getDown() != null) {
-				current = current.getDown();
-			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		return arr;
 	}
 
-	public int compare(FlightKey key1, FlightKey key2) throws ParseException {
+	/**
+	 * A helper method that compares origin, destination and date
+	 * @param key1 FlightKey this
+	 * @param key2 FlightKey other
+	 * @return result 0 if equal, -1 if smaller, 1 if bigger
+	 * @throws ParseException Simple Date Format
+	 */
+	private int compare(FlightKey key1, FlightKey key2) throws ParseException {
 		int result = key1.getOrigin().compareTo(key2.getOrigin()); //save the result in this temp variable, if it's not zero then return the temp, else...
 		if (result == 0) {
 			result = key1.getDest().compareTo(key2.getDest());
@@ -301,7 +294,13 @@ public class FlightList {
 		return result;
 	}
 
-	public int compareTime(FlightKey key1, FlightKey key2) {
+	/**
+	 * A helper method that compares time
+	 * @param key1 FlightKey this
+	 * @param key2 FlightKey other
+	 * @return result 0 if equal, -1 if smaller, 1 if bigger
+	 */
+	private int compareTime(FlightKey key1, FlightKey key2) {
 		LocalTime time1 = LocalTime.parse(key1.getTime());
 		LocalTime time2 = LocalTime.parse(key2.getTime());
 		return time1.compareTo(time2);
@@ -369,7 +368,15 @@ public class FlightList {
 	 */
 	public List<FlightNode> findFlights(FlightKey key, int timeFrame) {
 		List<FlightNode> resFlights = new ArrayList<FlightNode>();
+		List<FlightNode> tempFlights = new ArrayList<>();
+		//LocalTime timeMax = LocalTime
 		// FILL IN CODE
+		FlightNode current = findNode(key);
+		tempFlights = successors(key);
+//		for (int i = 0; i < tempFlights.size(); i++) {
+//			if
+//		}
+
 
 		return resFlights;
 	}
