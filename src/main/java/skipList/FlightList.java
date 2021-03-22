@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -213,14 +214,18 @@ public class FlightList {
 		for (int i = height; i > 0; i--) {
 			current = moveRight(current, key);
 			try {
-				if (current.getNext() != null && current.getNext().getKey().compareTo(key) == 0) {
-					if (current.getDown() != null) {
-						current = current.getDown();
-					}
-					while (current.getNext().getNext() != null) {
+				if (current.getNext() != null && compare(current.getNext().getKey(), key) == 0) {
+					if (compareTime(current.getNext().getKey(), key) >= 0) {
 						current = current.getNext();
-						if (compare(current.getNext().getKey(), key) == 0) {
-							arr.add(current.getNext());
+						while (current.getDown() != null) {
+							current = current.getDown();
+							i++;
+						}
+						while (current.getNext() != null) {
+							current = current.getNext();
+							if (compare(current.getKey(), key) == 0) {
+								arr.add(current);
+							}
 						}
 					}
 				}
@@ -262,6 +267,12 @@ public class FlightList {
 			result = (result < 0) ? -1 : 1;
 		}
 		return result;
+	}
+
+	public int compareTime(FlightKey key1, FlightKey key2) {
+		LocalTime time1 = LocalTime.parse(key1.getTime());
+		LocalTime time2 = LocalTime.parse(key2.getTime());
+		return time1.compareTo(time2);
 	}
 
 	/**

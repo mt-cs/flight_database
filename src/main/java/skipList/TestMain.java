@@ -51,13 +51,12 @@ public class TestMain {
         FlightList flight2 = new FlightList();
         flight2.insert(key1, data1);
         flight2.insert(fk1, data1);
-        //flight2.insert(fk2, data2);
+        flight2.insert(fk2, data2);
         flight2.insert(key2, data1);
         flight2.insert(key3, data1);
         flight2.insert(key4, data1);
-        //flight2.insert(key5, data1);
-        List<FlightNode> arr = new ArrayList<FlightNode>();
-        arr = flight2.successors(key1);
+        flight2.insert(key5, data1);
+        List<FlightNode> arr = flight2.successors(key1);
         for (int i = 0; i < arr.size(); i++) {
             System.out.println(arr.get(i).getKey());
         }
