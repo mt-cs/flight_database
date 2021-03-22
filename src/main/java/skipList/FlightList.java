@@ -202,6 +202,27 @@ public class FlightList {
 	}
 
 	/**
+	 * Returns the node if the node with the given key exists in the skip list,
+	 * otherwise one node before it.
+	 *
+	 * @param key flight key
+	 * @return true if the key is in the skip list, false otherwise
+	 */
+	public FlightNode findNode(FlightKey key) {
+		FlightNode current = head;
+		for (int i = height; i > 0; i--) {
+			current = moveRight(current, key);
+			if (current.getNext() != null && current.getNext().getKey().compareTo(key) == 0) {
+				return current.getNext();
+			}
+			if (current.getDown() != null) {
+				current = current.getDown();
+			}
+		}
+		return current;
+	}
+
+	/**
 	 * Returns the list of nodes that are successors of a given key. Refer to
 	 * the project pdf for a detailed description of the method.
 	 * 
@@ -215,17 +236,18 @@ public class FlightList {
 			current = moveRight(current, key);
 			try {
 				if (current.getNext() != null && compare(current.getNext().getKey(), key) == 0) {
-					if (compareTime(current.getNext().getKey(), key) >= 0) {
-						current = current.getNext();
+					if (compareTime(current.getNext().getKey(), key) > 0) {
+						//current = current.getNext();
 						while (current.getDown() != null) {
 							current = current.getDown();
 							i--;
 						}
 						while (current.getNext() != null) {
-							if (compare(current.getKey(), key) == 0) {
+							current = current.getNext();
+							//if (compare(current.getKey(), key) == 0) {
+							if (current.getKey().compareTo(key) > 0 && compare(current.getKey(), key) == 0) {
 								arr.add(current);
 							}
-							current = current.getNext();
 						}
 					}
 				}
@@ -249,6 +271,33 @@ public class FlightList {
 	 */
 	public List<FlightNode> predecessors(FlightKey key, int timeFrame) {
 		List<FlightNode> arr = new ArrayList<FlightNode>();
+		FlightNode current = head;
+		for (int i = height; i > 0; i--) {
+			current = moveRight(current, key);
+			try {
+				if (current.getNext() != null && compare(current.getNext().getKey(), key) == 0) {
+					if (compareTime(current.getNext().getKey(), key) < 0) {
+						current = current.getNext();
+						while (current.getDown() != null) {
+							current = current.getDown();
+							i--;
+						}
+						while (current.getNext() != null) {
+							//if (compare(current.getKey(), key) == 0) {
+							if (current.getKey().compareTo(key) < 0) {
+								arr.add(current);
+							}
+							current = current.getNext();
+						}
+					}
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			if (current.getDown() != null) {
+				current = current.getDown();
+			}
+		}
 		return arr;
 	}
 

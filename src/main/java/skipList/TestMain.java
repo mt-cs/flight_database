@@ -24,6 +24,7 @@ public class TestMain {
         FlightKey key3 = new FlightKey("SFO", "JFK", "03/15/2021", "09:00");
         FlightKey key4 = new FlightKey("SFO", "JFK", "03/15/2021", "13:40");
         FlightKey key5 = new FlightKey("SFO", "JFK", "03/15/2021", "19:00");
+        FlightKey key6 = new FlightKey("SFO", "JFK", "03/15/2021", "08:10");
 
         /* FLIGHT DATA */
         FlightData data1 = new FlightData("LH122", 300.0);
@@ -51,16 +52,22 @@ public class TestMain {
         FlightList flight2 = new FlightList();
         flight2.insert(key1, data1);
         flight2.insert(fk1, data1);
-        flight2.insert(fk2, data2);
+//        flight2.insert(fk2, data2);
         flight2.insert(key2, data1);
         flight2.insert(key3, data1);
-        flight2.insert(key4, data1);
-        flight2.insert(key5, data1);
-        List<FlightNode> arr = flight2.successors(key1);
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i).getKey());
-        }
-
+//        flight2.insert(key4, data1);
+//        flight2.insert(key5, data1);
+        System.out.println(flight2.findNode(key6).getKey().toString());
+//        System.out.println("SUCCESSORS");
+//        List<FlightNode> arr = flight2.successors(key6);
+//        for (int i = 0; i < arr.size(); i++) {
+//            System.out.println(arr.get(i).getKey());
+//        }
+//        System.out.println("PREDECESSORS\n");
+//        arr = flight2.predecessors(key5, 4);
+//        for (int i = 0; i < arr.size(); i++) {
+//            System.out.println(arr.get(i).getKey());
+//        }
     }
 
 
