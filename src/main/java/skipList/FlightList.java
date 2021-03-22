@@ -219,13 +219,13 @@ public class FlightList {
 						current = current.getNext();
 						while (current.getDown() != null) {
 							current = current.getDown();
-							i++;
+							i--;
 						}
 						while (current.getNext() != null) {
-							current = current.getNext();
 							if (compare(current.getKey(), key) == 0) {
 								arr.add(current);
 							}
+							current = current.getNext();
 						}
 					}
 				}
