@@ -214,10 +214,13 @@ public class FlightList {
 			current = moveRight(current, key);
 			try {
 				if (current.getNext() != null && current.getNext().getKey().compareTo(key) == 0) {
+					if (current.getDown() != null) {
+						current = current.getDown();
+					}
 					while (current.getNext().getNext() != null) {
 						current = current.getNext();
-						if (compare(current.getKey(), key) == 0) {
-							arr.add(current);
+						if (compare(current.getNext().getKey(), key) == 0) {
+							arr.add(current.getNext());
 						}
 					}
 				}
@@ -229,16 +232,6 @@ public class FlightList {
 			}
 		}
 		return arr;
-		// FILL IN CODE
-		//Returns a list of nodes that have
-		// the same origin and destination cities and the same date as the key,
-		// with departure times in increasing order from the requested departure time.
-		// For example, for the following key (SFO, JFK, 03/15/2021, 08:00),
-		// the method will return the following flights (assuming they are in the flights file):
-		//(SFO, JFK, 03/15/2021, 08:15)
-		//(SFO, JFK, 03/15/2021, 09:00)
-		//(SFO, JFK, 03/15/2021, 13:40)
-		//(SFO, JFK, 03/15/2021, 19:00)
 	}
 
 	/**

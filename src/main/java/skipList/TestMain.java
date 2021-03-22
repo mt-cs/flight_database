@@ -1,13 +1,18 @@
 package skipList;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class TestMain {
 
     public static void main(String[] args) {
         /* FLIGHT KEY */
-//        FlightKey fk1 = new FlightKey("FRA", "JFK", "06/05/2020", "07:00");
+        FlightKey fk1 = new FlightKey("FRA", "JFK", "06/05/2020", "07:00");
 //        System.out.println(fk1.toString());
 //        System.out.println(fk1.getDate());
 //        System.out.println(fk1.getTime());
-//        FlightKey fk2 = new FlightKey("FRA", "JFK", "05/03/2021", "10:00");
+        FlightKey fk2 = new FlightKey("FRA", "JFK", "05/03/2021", "10:00");
 //        System.out.println(fk2.toString());
 //        System.out.println(fk1.compareTo(fk2));
 //
@@ -22,7 +27,7 @@ public class TestMain {
 
         /* FLIGHT DATA */
         FlightData data1 = new FlightData("LH122", 300.0);
-//        FlightData data2 = new FlightData("LH150", 500.0);
+        FlightData data2 = new FlightData("LH150", 500.0);
 //        System.out.println(data1.getFlightNumber() + " " + data1.getPrice());
 
         /* FLIGHT NODE */
@@ -45,12 +50,17 @@ public class TestMain {
 
         FlightList flight2 = new FlightList();
         flight2.insert(key1, data1);
+        flight2.insert(fk1, data1);
+        //flight2.insert(fk2, data2);
         flight2.insert(key2, data1);
         flight2.insert(key3, data1);
         flight2.insert(key4, data1);
-        flight2.insert(key5, data1);
-        flight2.successors(key1);
-
+        //flight2.insert(key5, data1);
+        List<FlightNode> arr = new ArrayList<FlightNode>();
+        arr = flight2.successors(key1);
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getKey());
+        }
 
     }
 

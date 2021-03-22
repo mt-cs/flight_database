@@ -83,7 +83,6 @@ public class Project2Test {
     @Test
     /** Test predecessors() method */
     public void testPredecessors() {
-
         List<FlightKey> flightsToTest = new ArrayList<FlightKey>();
         int[] timeDifference = new int[5];
         List<FlightNode[]> expectedResults = new ArrayList<FlightNode[]>();
@@ -128,7 +127,6 @@ public class Project2Test {
     @Test
     /** Test successors() method */
     public void testSuccessors() {
-
         List<FlightKey> flightsToTest = new ArrayList<>();
         int[] timeDifference = new int[5];
         List<FlightNode[]> expectedResults = new ArrayList<>();
