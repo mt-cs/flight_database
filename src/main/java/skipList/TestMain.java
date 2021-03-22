@@ -52,17 +52,17 @@ public class TestMain {
         FlightList flight2 = new FlightList();
         flight2.insert(key1, data1);
         flight2.insert(fk1, data1);
-//        flight2.insert(fk2, data2);
+        flight2.insert(fk2, data2);
         flight2.insert(key2, data1);
         flight2.insert(key3, data1);
-//        flight2.insert(key4, data1);
-//        flight2.insert(key5, data1);
-        System.out.println(flight2.findNode(key6).getKey().toString());
-//        System.out.println("SUCCESSORS");
-//        List<FlightNode> arr = flight2.successors(key6);
-//        for (int i = 0; i < arr.size(); i++) {
-//            System.out.println(arr.get(i).getKey());
-//        }
+        flight2.insert(key4, data1);
+        flight2.insert(key5, data1);
+//        System.out.println(flight2.findNode(key6).getKey().toString());
+        System.out.println("SUCCESSORS");
+        List<FlightNode> arr = flight2.successors(key6);
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getKey());
+        }
 //        System.out.println("PREDECESSORS\n");
 //        arr = flight2.predecessors(key5, 4);
 //        for (int i = 0; i < arr.size(); i++) {

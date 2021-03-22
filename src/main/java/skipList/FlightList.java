@@ -231,32 +231,15 @@ public class FlightList {
 	 */
 	public List<FlightNode> successors(FlightKey key) {
 		List<FlightNode> arr = new ArrayList<FlightNode>();
-		FlightNode current = head;
-		for (int i = height; i > 0; i--) {
-			current = moveRight(current, key);
-			try {
-				if (current.getNext() != null && compare(current.getNext().getKey(), key) == 0) {
-					if (compareTime(current.getNext().getKey(), key) > 0) {
-						//current = current.getNext();
-						while (current.getDown() != null) {
-							current = current.getDown();
-							i--;
-						}
-						while (current.getNext() != null) {
-							current = current.getNext();
-							//if (compare(current.getKey(), key) == 0) {
-							if (current.getKey().compareTo(key) > 0 && compare(current.getKey(), key) == 0) {
-								arr.add(current);
-							}
-						}
-					}
-				}
-			} catch (ParseException e) {
-				e.printStackTrace();
+		FlightNode current = findNode(key);
+		try {
+			current = current.getNext();
+			while (current.getKey().compareTo(key) > 0 && compare(current.getKey(), key) == 0) {
+				arr.add(current);
+				current = current.getNext();
 			}
-			if (current.getDown() != null) {
-				current = current.getDown();
-			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		return arr;
 	}
