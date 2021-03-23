@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -205,7 +206,7 @@ public class FlightList {
 	 * @param key flight key
 	 * @return true if the key is in the skip list, false otherwise
 	 */
-	public FlightNode findNode(FlightKey key) {
+	private FlightNode findNode(FlightKey key) {
 		FlightNode current = head;
 		for (int i = height; i > 0; i--) {
 			current = moveRight(current, key);
@@ -368,17 +369,31 @@ public class FlightList {
 	 */
 	public List<FlightNode> findFlights(FlightKey key, int timeFrame) {
 		List<FlightNode> resFlights = new ArrayList<FlightNode>();
-		List<FlightNode> tempFlights = new ArrayList<>();
-		//LocalTime timeMax = LocalTime
-		// FILL IN CODE
-		FlightNode current = findNode(key);
+		List<FlightNode> tempFlights = predecessors(key, timeFrame);
+		for (int i = 0; i < tempFlights.size(); i++) {
+			if (timeDifference(tempFlights.get(i).getKey(), key, timeFrame)) {
+				resFlights.add(tempFlights.get(i));
+			}
+		}
 		tempFlights = successors(key);
-//		for (int i = 0; i < tempFlights.size(); i++) {
-//			if
-//		}
-
-
+		for (int i = 0; i < tempFlights.size(); i++) {
+			if (timeDifference(key, tempFlights.get(i).getKey(), timeFrame)) {
+				resFlights.add(tempFlights.get(i));
+			}
+		}
 		return resFlights;
+	}
+
+	/**
+	 * Calculating time difference between two FlightKeys
+	 * @param key1 FlightKey with earlier time
+	 * @param key2 FlightKey with later time
+	 * @param timeFrame time frame
+	 * @return true if the difference is smaller than the time frame, false otherwise
+	 */
+	private boolean timeDifference (FlightKey key1, FlightKey key2, int timeFrame) {
+		Duration duration = Duration.between(LocalTime.parse(key1.getTime()), LocalTime.parse(key2.getTime()));
+		return  duration.toHours() < timeFrame;
 	}
 
 }

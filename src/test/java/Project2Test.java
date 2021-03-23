@@ -71,7 +71,6 @@ public class Project2Test {
                 for (int l=0; l < expectedResult.length; l++)
                     System.out.println(expectedResult[l].getKey() + " ");
                 Assert.fail();
-
             }
             if (!compareToExpectedResult(expectedResult, results))
                 Assert.fail("At least one of the flights returned by findFlights is incorrect: ");
