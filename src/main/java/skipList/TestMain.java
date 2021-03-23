@@ -63,24 +63,23 @@ public class TestMain {
         flight2.insert(key8, data1);
 
         System.out.println(flight2.toString());
-//        System.out.println("\nSUCCESSORS");
-//        System.out.println("Key: " + key6.toString());
-        List<FlightNode> arr = flight2.successors(key6);
-//        for (int i = 0; i < arr.size(); i++) {
-//            System.out.println(arr.get(i).getKey());
-//        }
-//        System.out.println("\nPREDECESSORS");
-//        System.out.println("Key: " + key5.toString());
-//        arr = flight2.predecessors(key5, 15);
-//        for (int i = 0; i < arr.size(); i++) {
-//            System.out.println(arr.get(i).getKey());
-//        }
+        System.out.println("\nSUCCESSORS");
+        System.out.println("Key: " + key1.toString());
+        List<FlightNode> arr = flight2.successors(key1);
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getKey());
+        }
+        System.out.println("\nPREDECESSORS");
+        System.out.println("Key: " + key1.toString());
+        arr = flight2.predecessors(key1, 15);
+        for (int i = 0; i < arr.size(); i++) {
+            System.out.println(arr.get(i).getKey());
+        }
         System.out.println("\nFIND FLIGHTS");
         arr = flight2.findFlights(key1, 2);
         for (int i = 0; i < arr.size(); i++) {
             System.out.println(arr.get(i).getKey());
         }
-
     }
 
 

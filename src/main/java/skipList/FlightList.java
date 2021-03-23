@@ -258,7 +258,6 @@ public class FlightList {
 		List<FlightNode> arr = new ArrayList<FlightNode>();
 		FlightNode current = findNode(key);
 		try {
-
 			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0) {
 				if (compareTime(current.getKey(), key) < 0) {
 					arr.add(0, current);
@@ -369,17 +368,23 @@ public class FlightList {
 	 */
 	public List<FlightNode> findFlights(FlightKey key, int timeFrame) {
 		List<FlightNode> resFlights = new ArrayList<FlightNode>();
-		List<FlightNode> tempFlights = predecessors(key, timeFrame);
-		for (int i = 0; i < tempFlights.size(); i++) {
-			if (timeDifference(tempFlights.get(i).getKey(), key, timeFrame)) {
-				resFlights.add(tempFlights.get(i));
+		FlightNode current = findNode(key);
+		FlightNode next = current.getNext();
+		try {
+			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0) {
+				if (timeDifference(current.getKey(), key, timeFrame) && compare(current.getKey(), key) == 0) {
+					resFlights.add(0, current);
+				}
+				current = current.getPrev();
 			}
-		}
-		tempFlights = successors(key);
-		for (int i = 0; i < tempFlights.size(); i++) {
-			if (timeDifference(key, tempFlights.get(i).getKey(), timeFrame)) {
-				resFlights.add(tempFlights.get(i));
+			while (next.getKey().compareTo(key) > 0 && compare(next.getKey(), key) == 0) {
+				if (timeDifference(key, next.getKey(), timeFrame) && compare(next.getKey(), key) == 0) {
+					resFlights.add(next);
+				}
+				next = next.getNext();
 			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		return resFlights;
 	}
@@ -393,7 +398,8 @@ public class FlightList {
 	 */
 	private boolean timeDifference (FlightKey key1, FlightKey key2, int timeFrame) {
 		Duration duration = Duration.between(LocalTime.parse(key1.getTime()), LocalTime.parse(key2.getTime()));
-		return  duration.toHours() < timeFrame;
+		long durHour = duration.toHours();
+		return  duration.toHours() <= timeFrame;
 	}
 
 }
