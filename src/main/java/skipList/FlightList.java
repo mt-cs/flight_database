@@ -371,16 +371,14 @@ public class FlightList {
 		FlightNode current = findNode(key);
 		FlightNode next = current.getNext();
 		try {
-			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0) {
-				if (timeDifference(current.getKey(), key, timeFrame) && compare(current.getKey(), key) == 0) {
-					resFlights.add(0, current);
-				}
+			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0
+					&& timeDifference(current.getKey(), key, timeFrame)) {
+				resFlights.add(0, current);
 				current = current.getPrev();
 			}
-			while (next.getKey().compareTo(key) > 0 && compare(next.getKey(), key) == 0) {
-				if (timeDifference(key, next.getKey(), timeFrame) && compare(next.getKey(), key) == 0) {
-					resFlights.add(next);
-				}
+			while (next.getKey().compareTo(key) > 0 && compare(next.getKey(), key) == 0
+					&& timeDifference(key, next.getKey(), timeFrame)) {
+				resFlights.add(next);
 				next = next.getNext();
 			}
 		} catch (ParseException e) {
