@@ -76,19 +76,19 @@ public class TestMain {
         System.out.println("\nSUCCESSORS");
         System.out.println("Key: " + key6.toString());
         List<FlightNode> arr = flight2.successors(key6);
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i).getKey());
+        for (FlightNode node : arr) {
+            System.out.println(node.getKey());
         }
         System.out.println("\nPREDECESSORS");
         System.out.println("Key: " + key6.toString());
         arr = flight2.predecessors(key6, 15);
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i).getKey());
+        for (FlightNode node : arr) {
+            System.out.println(node.getKey());
         }
         System.out.println("\nFIND FLIGHTS");
         arr = flight2.findFlights(key6, 2);
-        for (int i = 0; i < arr.size(); i++) {
-            System.out.println(arr.get(i).getKey());
+        for (FlightNode node : arr) {
+            System.out.println(node.getKey());
         }
     }
 }
