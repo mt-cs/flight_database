@@ -74,9 +74,7 @@ public class Project2Test {
             }
             if (!compareToExpectedResult(expectedResult, results))
                 Assert.fail("At least one of the flights returned by findFlights is incorrect: ");
-
         }
-
     }
 
     @Test

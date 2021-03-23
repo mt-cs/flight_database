@@ -366,22 +366,25 @@ public class FlightList {
 	 * as the key, and whose departure time is within a given timeframe
 	 */
 	public List<FlightNode> findFlights(FlightKey key, int timeFrame) {
-		List<FlightNode> resFlights = new ArrayList<>();
+		List<FlightNode> resFlights = new ArrayList<FlightNode>();
+
+		List<FlightNode> tempFlights = predecessors(key, timeFrame);
+		for (FlightNode flight : tempFlights) {
+			if (timeDifference(flight.getKey(), key, timeFrame)) {
+				resFlights.add(flight);
+			}
+		}
+
 		FlightNode current = findNode(key);
-		FlightNode next = current.getNext();
-		try {
-			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0
-					&& timeDifference(current.getKey(), key, timeFrame)) {
-				resFlights.add(0, current);
-				current = current.getPrev();
+		if (current.getKey().compareTo(key) == 0) {
+			resFlights.add(current);
+		}
+
+		tempFlights = successors(key);
+		for (FlightNode tempFlight : tempFlights) {
+			if (timeDifference(key, tempFlight.getKey(), timeFrame)) {
+				resFlights.add(tempFlight);
 			}
-			while (next.getKey().compareTo(key) > 0 && compare(next.getKey(), key) == 0
-					&& timeDifference(key, next.getKey(), timeFrame)) {
-				resFlights.add(next);
-				next = next.getNext();
-			}
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 		return resFlights;
 	}
@@ -397,5 +400,4 @@ public class FlightList {
 		Duration duration = Duration.between(LocalTime.parse(key1.getTime()), LocalTime.parse(key2.getTime()));
 		return  duration.toHours() <= timeFrame;
 	}
-
 }
