@@ -232,7 +232,7 @@ public class FlightList {
 	 * @return successors of the given key
 	 */
 	public List<FlightNode> successors(FlightKey key) {
-		List<FlightNode> arr = new ArrayList<FlightNode>();
+		List<FlightNode> arr = new ArrayList<>();
 		FlightNode current = findNode(key);
 		try {
 			current = current.getNext();
@@ -255,7 +255,7 @@ public class FlightList {
 	 * @return predecessors of the given key
 	 */
 	public List<FlightNode> predecessors(FlightKey key, int timeFrame) {
-		List<FlightNode> arr = new ArrayList<FlightNode>();
+		List<FlightNode> arr = new ArrayList<>();
 		FlightNode current = findNode(key);
 		try {
 			while (current.getKey().compareTo(key) <= 0 && compare(current.getKey(), key) == 0) {
@@ -314,14 +314,13 @@ public class FlightList {
 	 * (SFO, JFK, 03/15, 06:30), (SFO, JFK, 03/15, 7:15), (SFO, JFK, 03/20, 5:00), (SFO, PVD, 03/14, 09:15)
 	 */
 	public String toString() {
-		// FILL IN CODE
 		StringBuilder sb = new StringBuilder();
 		FlightNode prev = head;
 		FlightNode current = prev.getNext();
 		for (int i = 1; i <= height; i++) {
 			while (current != null && current.getNext() != null) {
 				String[] arr = current.getKey().toString().split(", ");
-				sb.append(arr[0]).append(", ").append(arr[1]).append(", ").append(arr[2].substring(0,5)).
+				sb.append(arr[0]).append(", ").append(arr[1]).append(", ").append(arr[2], 0, 5).
 						append(", ").append(arr[3]);
 				if (current.getNext().getNext() != null) {
 					sb.append(", ");
@@ -367,7 +366,7 @@ public class FlightList {
 	 * as the key, and whose departure time is within a given timeframe
 	 */
 	public List<FlightNode> findFlights(FlightKey key, int timeFrame) {
-		List<FlightNode> resFlights = new ArrayList<FlightNode>();
+		List<FlightNode> resFlights = new ArrayList<>();
 		FlightNode current = findNode(key);
 		FlightNode next = current.getNext();
 		try {
@@ -396,7 +395,6 @@ public class FlightList {
 	 */
 	private boolean timeDifference (FlightKey key1, FlightKey key2, int timeFrame) {
 		Duration duration = Duration.between(LocalTime.parse(key1.getTime()), LocalTime.parse(key2.getTime()));
-		long durHour = duration.toHours();
 		return  duration.toHours() <= timeFrame;
 	}
 
