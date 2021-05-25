@@ -23,13 +23,9 @@ Figure 1. An example of a skip list that stores information about eight flights.
 
 ### Program Options
 Each portion of the display can be toggled with command line options. Here are the options:
-```bash
-
-Options:
-    * successors         Returns flights with departure times in increasing order from the requested departure time.
-    * predecessors       Returns flights with departure times in increasing order from the requested departure time. 
-    * findFlights        Returns flights with departure times within the given time frame of the departure time of the key.
-```
+- <b>successors</b>: Returns a list of nodes that have the same origin and destination cities and the same date as the key, with departure times after the requested departure time. 
+- <b>predecessors</b>: Returns a list of nodes that have the same origin and destination cities and the same date as the key, with departure times before the requested departure time. 
+- <b>findFlights</b>: Returns flights with departure times within the given time frame of the departure time of the key.
 
 
 ### Included Files
@@ -74,4 +70,10 @@ the result will be the following:
 (SFO, JFK, 03/15/2021, 08:15) 
 (SFO, JFK, 03/15/2021, 09:00) 
 (SFO, JFK, 03/15/2021, 13:40)
+
+Predecessors Example:
+For example, for the following key (SFO, JFK, 03/15/2021, 08:00), 
+the method will return the following flights (assuming they are in the flights file): 
+(SFO, JFK, 03/15/2021, 06:30)
+(SFO, JFK, 03/15/2021, 07:15)
 ```
