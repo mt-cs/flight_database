@@ -26,9 +26,9 @@ Each portion of the display can be toggled with command line options. Here are t
 ```bash
 
 Options:
-    * successors         Returns a list of nodes that have the same origin and destination cities and the same date as the key, with departure times in increasing order from the requested departure time.
-    * predecessors       Returns a list of nodes that have the same origin and destination cities and the same date as the key, with departure times in increasing order from the requested departure time. 
-    * findFlights        Returns a list of nodes that have the same origin and destination cities and the same date as the key, with departure times within the given time frame of the departure time of the key.
+    * successors         Returns flights with departure times in increasing order from the requested departure time.
+    * predecessors       Returns flights with departure times in increasing order from the requested departure time. 
+    * findFlights        Returns flights with departure times within the given time frame of the departure time of the key.
 ```
 
 
@@ -50,31 +50,27 @@ Assume that the database contains the following flights (only the keys are menti
 (SFO, JFK, 03/15/2021, 09:00) 
 (SFO, JFK, 03/15/2021, 13:00) 
 (SFO, JFK, 03/15/2021, 15:00)
-For the key (SFO, JFK, 03/15/2021, 08:00) and time frame of 2 hours, findFlights will return the following results:
+For the key (SFO, JFK, 03/15/2021, 08:00) and time frame of 2 hours, 
+findFlights will return the following results:
 (SFO, JFK, 03/15/2021, 06:30)
 (SFO, JFK, 03/15/2021, 07:15)
 (SFO, JFK, 03/15/2021, 08:15) 
 (SFO, JFK, 03/15/2021, 09:00)
 
 Successors Example:
-For the following key (SFO, JFK, 03/15/2021, 08:00), the result will be the following flights (assuming they are in the flights file): 
-(SFO, JFK, 03/15/2021, 08:15)
-(SFO, JFK, 03/15/2021, 09:00)
-(SFO, JFK, 03/15/2021, 13:40)
-(SFO, JFK, 03/15/2021, 19:00)
-
-Predecessors Example:
 Assume that the skip list has the following flights:
 (SFO, JFK, 03/15/2021, 08:15) 
 (SFO, JFK, 03/15/2021, 09:00) 
 (SFO, JFK, 03/15/2021, 13:40) 
 (SFO, JFK, 03/15/2021, 19:00)
 
-If we call successors method with the following key (SFO, JFK, 03/15/2021, 08:15), the result will be:
+If we call successors method with the following key (SFO, JFK, 03/15/2021, 08:15), 
+the result will be:
 (SFO, JFK, 03/15/2021, 09:00) 
 (SFO, JFK, 03/15/2021, 13:40) 
 (SFO, JFK, 03/15/2021, 19:00)
-If we call successors method with the following key: (SFO, JFK, 03/15/2021, 08:00) that is not in the skip list, the result will be the following:
+If we call successors method with the following key: (SFO, JFK, 03/15/2021, 08:00) that is not in the skip list, 
+the result will be the following:
 (SFO, JFK, 03/15/2021, 08:15) 
 (SFO, JFK, 03/15/2021, 09:00) 
 (SFO, JFK, 03/15/2021, 13:40)
